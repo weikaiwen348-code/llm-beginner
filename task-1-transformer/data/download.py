@@ -23,7 +23,24 @@ def main():
         sys.exit("[错误] 缺少依赖：pip install datasets pyarrow")
 
     print("正在下载 seamew/ChnSentiCorp ...")
-    ds = load_dataset("seamew/ChnSentiCorp", cache_dir=str(DATA_DIR / "cache"))
+    train_ds = load_dataset(
+    "seamew/ChnSentiCorp",
+    revision="refs/convert/parquet",
+    split="train",
+    cache_dir=str(DATA_DIR / "cache"),
+    )
+
+    validation_ds = load_dataset(
+        "seamew/ChnSentiCorp",
+        revision="refs/convert/parquet",
+        split="validation",
+        cache_dir=str(DATA_DIR / "cache"),
+    )
+
+    ds = {
+        "train": train_ds,
+        "validation": validation_ds,
+    }
 
     for split in ds.keys():
         out = DATA_DIR / f"{split}.parquet"
