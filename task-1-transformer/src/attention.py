@@ -1,7 +1,4 @@
-
 # 检验：python eval/run.py
-
-
 
 import torch
 
@@ -15,7 +12,7 @@ def scaled_dot_product_attention(Q, K, V, mask=None) :
     
     if mask is not None:
         scores = scores.masked_fill(mask == 1, float('-inf'))
-    
+        
     scale = Q.shape[-1] ** 0.5
     scores = scores / scale
     attention_weights = torch.softmax(scores , dim = -1)
@@ -63,5 +60,8 @@ class MultiHeadAttention(nn.Module) :
         output = self.W_out(output)
         
         return output
+    
+  
+
         
         
