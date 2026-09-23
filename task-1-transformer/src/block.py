@@ -40,7 +40,6 @@ class TransformerBlock(nn.Module) :
         self.ffn_dropout = nn.Dropout(dropout)
         self.ln1 = LayerNorm(d_model)
         self.ln2 = LayerNorm(d_model)
-        self.ln3 = LayerNorm(d_model)
 
     def forward(self, x, mask = None, return_attention=False) :
         
