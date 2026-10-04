@@ -87,10 +87,16 @@ def test_perplexity_on_dev():
             if len(window) < 2:
                 break
             chunk = torch.tensor([window], dtype=torch.long)
-            logits = model(chunk)
+            inputs = chunk[:, :-1]
+            targets = chunk[:, 1:]
+
+            logits = model(inputs)
+
             nll += F.cross_entropy(
-                logits[:, :-1].reshape(-1, logits.size(-1)),
-                chunk[:, 1:].reshape(-1), reduction="sum").item()
+                logits.reshape(-1, logits.size(-1)),
+                targets.reshape(-1),
+                reduction="sum",
+            ).item()
             n_tok += chunk.size(1) - 1
     if n_tok == 0:
         return {"test": "perplexity_on_dev", "pass": None,

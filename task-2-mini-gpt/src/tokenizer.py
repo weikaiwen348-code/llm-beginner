@@ -93,6 +93,7 @@ class BPETokenizer:
                         self.id_to_token[id_] for id_ in ids
                     )
         return raw.decode("utf-8")
+    
     @property
     def vocab_size(self):
        return len(self.id_to_token) 
@@ -145,7 +146,42 @@ class BPETokenizer:
         
 if __name__ == "__main__":
     text = load_text()
-    ids = list(text.encode("utf-8"))
-    print("字符数：", len(text))
-    print("text 结构：", type(text))
-    print(ids[:100])
+    
+    
+    vocab_size = 400
+    tokenizer = BPETokenizer()
+    tokenizer.train(text = text , vocab_size= vocab_size)
+    
+     # 3. 创建保存目录
+    save_path = ROOT / "ckpt" / "tokenizer.json"
+    save_path.parent.mkdir(parents=True, exist_ok=True)
+
+    # 4. 保存训练得到的 merge 规则
+    tokenizer.save(save_path)
+
+    print("vocab size:", tokenizer.vocab_size)
+    print("tokenizer saved to:", save_path)
+    
+    loaded = BPETokenizer.from_pretrained(save_path)
+
+    samples = [
+        "床前明月光",
+        "Hello, world!",
+        "深度学习需要数学基础",
+    ]
+
+    for sample in samples:
+        original_ids = tokenizer.encode(sample)
+        loaded_ids = loaded.encode(sample)
+        restored = loaded.decode(loaded_ids)
+
+        print("文本：", sample)
+        print("token ids：", loaded_ids)
+        print("还原：", restored)
+
+        assert original_ids == loaded_ids
+        assert restored == sample
+
+    print("保存和加载测试通过")
+        
+    
