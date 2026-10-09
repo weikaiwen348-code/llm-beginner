@@ -1,0 +1,68 @@
+{
+  "lora_config": {
+    "base_model": "Qwen2.5-0.5B",
+    "r": 8,
+    "alpha": 16,
+    "target_modules": [
+      "q_proj",
+      "v_proj"
+    ]
+  },
+  "data_config": {
+    "seed": 40,
+    "max_samples": 100,
+    "val_ratio": 0.1
+  },
+  "metrics": [
+    {
+      "epoch": 1,
+      "train_loss": 1.210223125192432,
+      "val_loss": 1.0640196164703195
+    },
+    {
+      "epoch": 2,
+      "train_loss": 1.1642529156535868,
+      "val_loss": 1.0523772109529643
+    },
+    {
+      "epoch": 3,
+      "train_loss": 1.141999241490203,
+      "val_loss": 1.0509305717793704
+    },
+    {
+      "epoch": 4,
+      "train_loss": 1.1230167115546914,
+      "val_loss": 1.0514384249183564
+    },
+    {
+      "epoch": 5,
+      "train_loss": 1.1035011992815968,
+      "val_loss": 1.0530235775805543
+    },
+    {
+      "epoch": 6,
+      "train_loss": 1.0844476885742742,
+      "val_loss": 1.0581520938230682
+    },
+    {
+      "epoch": 7,
+      "train_loss": 1.0657075233905913,
+      "val_loss": 1.0611460634756982
+    },
+    {
+      "epoch": 8,
+      "train_loss": 1.0464097074772343,
+      "val_loss": 1.0657659531619899
+    },
+    {
+      "epoch": 9,
+      "train_loss": 1.0271156391975451,
+      "val_loss": 1.073921170175865
+    },
+    {
+      "epoch": 10,
+      "train_loss": 1.0081328699483803,
+      "val_loss": 1.0789960165882067
+    }
+  ]
+}
